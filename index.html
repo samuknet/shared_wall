@@ -1,0 +1,71 @@
+<!doctype html>
+<html ng-app="sharedWall">
+<head>
+<meta charset="utf-8" />
+<title>Wall</title>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script src="https://opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
+
+<script src="js/main.js"></script>
+
+<script src="js/services/TypeService.js"></script>
+<script src="js/controllers/NavCtrl.js"></script>
+
+<script src="js/services/ItemService.js"></script>
+<script src="js/controllers/ItemsCtrl.js"></script>
+
+</script>
+
+</head>
+<body>
+
+<nav id="controls" ng-controller="NavCtrl" class="no-select">
+
+<div ng-repeat="type in types" ng-click="toggle(type)" class="toggle-btn">
++{{type}}
+</div>
+
+
+
+</nav>
+
+<main ng-controller="ItemsCtrl" class="item-container">
+<article ng-repeat="item in items" class="item">
+<header>
+<h2>{{item.title}}</h2>
+</header>
+<main>
+{{item.content.url}}
+</main>
+<footer>
+</footer>
+</article>
+</main>
+
+
+
+<article class="modal modal-template">
+<header>
+<h2>Modal Heading</h2>
+</header>
+<main>
+</main>
+<footer>
+<input class="modal-ok-btn" type="button" value="Ok" />
+<input class="modal-cancel-btn" type="button" value="Cancel" />
+</footer>
+</article>
+
+<form class="add-item-form add-item-text add-item-form-template">
+    <form>
+        <label for="title">Title</label>
+        <input type="text" class="add-item-title" />
+
+        <div contentEditable class="editable add-item-text-content">
+            Type here
+        </div>
+    </form>    
+</form>
+
+</body>
+</html>
