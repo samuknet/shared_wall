@@ -1,71 +1,105 @@
 <!doctype html>
 <html ng-app="sharedWall">
 <head>
-<meta charset="utf-8" />
-<title>Wall</title>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<script src="https://opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="js/main.js"></script>
+    <title>Wall</title>
+    <link rel="stylehseet" type="text/css" href="css/fade.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-<script src="js/services/TypeService.js"></script>
-<script src="js/controllers/NavCtrl.js"></script>
+    <script src="https://opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
 
-<script src="js/services/ItemService.js"></script>
-<script src="js/controllers/ItemsCtrl.js"></script>
+    <script src="js/main.js"></script>
 
+    <script src="js/services/TypeService.js"></script>
+    <script src="js/controllers/NavCtrl.js"></script>
+
+    <script src="js/services/ItemService.js"></script>
+    <script src="js/controllers/ItemsCtrl.js"></script>
 </script>
 
 </head>
 <body>
+    <nav id="controls" ng-controller="NavCtrl" class="no-select">
+        <form novalidate name="addItemForm" method="post" ng-controller="AddItemFormCtrl">
+                <section>
+                    Type:
+                    <select required ng-model="type" ng-change="valid=true" name="type">
+                        <option value="image">Image</option>
+                        <option value="spotify">Spotify</option>
+                        <option value="youtube">YouTube</option>
+                        <option value="link">Link</option>
+                    </select>
+                </section>
+                <section>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" ng-model="title" />
+                </section>
 
-<nav id="controls" ng-controller="NavCtrl" class="no-select">
+                <section>
+                    <div style="text-align:center" ng-show="type === 'image'">
+                        <input type="file" file="file" capture="camera" accept="image/*" name="image" />
+                    </div>
+                    <div ng-show="type!=='image'">
+                    <label for="url">URL:</label>
+                        <input ng-model="url" name="url" type="text" value="">
+                    </div>
+                    <input type="submit" ng-click="addItem(type, title, url)" value="Add" />
+                </section>
+        </form>
+    </nav>
 
-<div ng-repeat="type in types" ng-click="toggle(type)" class="toggle-btn">
-+{{type}}
-</div>
+    <main ng-controller="ItemsCtrl" class="item-container">
+        <article ng-repeat="item in items" ng-click="onItemClick(item)" class="{{getItemClass(item)}}">
+            <header>
+                <h2>{{item.title}}</h2>
+            </header>
+            <main ng-if="item.type === 'image'">
+                <img class="content content-image" ng-src="{{item.url}}" />
+            </main>
+
+            <main ng-if="item.type === 'spotify'">
+                <iframe class="content content-spotify" ng-src="{{getSpotifyIFrameSrc(item.url)}}" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>
+            </main>
+
+            <main ng-if="item.type === 'youtube'">
+            <iframe class="content content-youtube" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"  type="text/html" ng-src="{{getYoutubeIFrameSrc(item.url)}}"></iframe>
+            </main>
+
+            <main ng-if="item.type === 'link'">
+                <div class="content content-link">
+                </div>
+            </main>
 
 
+            <footer>
+            </footer>
+        </article>
+    </main>
 
-</nav>
+    <article class="modal modal-template">
+        <header>
+            <h2>Modal Heading</h2>
+        </header>
+        <main>
+        </main>
+        <footer>
+            <input class="modal-ok-btn" type="button" value="Ok" />
+            <input class="modal-cancel-btn" type="button" value="Cancel" />
+        </footer>
+    </article>
 
-<main ng-controller="ItemsCtrl" class="item-container">
-<article ng-repeat="item in items" class="item">
-<header>
-<h2>{{item.title}}</h2>
-</header>
-<main>
-{{item.content.url}}
-</main>
-<footer>
-</footer>
-</article>
-</main>
+    <form class="add-item-form add-item-text add-item-form-template">
+        <form>
+            <label for="title">Title</label>
+            <input type="text" class="add-item-title" />
 
-
-
-<article class="modal modal-template">
-<header>
-<h2>Modal Heading</h2>
-</header>
-<main>
-</main>
-<footer>
-<input class="modal-ok-btn" type="button" value="Ok" />
-<input class="modal-cancel-btn" type="button" value="Cancel" />
-</footer>
-</article>
-
-<form class="add-item-form add-item-text add-item-form-template">
-    <form>
-        <label for="title">Title</label>
-        <input type="text" class="add-item-title" />
-
-        <div contentEditable class="editable add-item-text-content">
-            Type here
-        </div>
-    </form>    
-</form>
+            <div contentEditable class="editable add-item-text-content">
+                Type here
+            </div>
+        </form>    
+    </form>
 
 </body>
 </html>

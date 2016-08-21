@@ -27,16 +27,52 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    opacity: 0.8;
-    padding: 10px;
+    opacity: 0.4;
+    padding: 10px 10px 6px 10px;
     background-color: #E2E0E0;
-    transition: 0.5s opacity ease-in-out;
+    transition: 0.5s all ease-in-out;
+    width: 20%;
+    min-width: 100px;
+    z-index: 999;
+}
+
+#controls:active {
+    opacity: 0.8;
+}
+
+#controls form section {
+    width: 100%;
+}
+
+#controls form input, #controls form select {
+    width: 100%;
+}
+
+#controls input[type="submit"] {
+    margin: auto;
+    margin-top: 5px;
+    float: right;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s background-color ease-in-out;
+    padding: 5px 10px 5px 10px;
+}
+
+#controls input[type="submit"]:hover {
+    background-color: #3FD35D;
 }
 
 #controls .toggle-btn {
-    display: inline-block;
-    float: left;
-    margin-left: 20px;
+    font-size: 250%;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s opacity ease-in-out;
+    opacity: 0.6;
+}
+
+#controls .toggle-btn:hover {
+    opacity: 1;
 }
 
 #controls:hover {
@@ -48,14 +84,17 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
 }
 
 .item {
     margin: auto;
-    background-color: #365CB5;
+    background-color: #365CB5; /* Royal Blue */
     color: white;
+    background-color: #EDEDED;
+    color: black;
+
     width: 20vw;
     min-width: 200px;
     padding: 0 5px 5px 5px;
@@ -63,8 +102,33 @@ body {
     border-bottom: 3px solid #8BA6E5;
     transition: 0.2s border-bottom ease-in-out;
     box-shadow: 1px 1px 5px rgba(160, 160, 160, 0.9);
+     -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1.5s; /* Firefox < 16 */
+    -ms-animation: fadein 1.5s; /* Internet Explorer */
+    -o-animation: fadein 1.5s; /* Opera < 12.1 */
+    animation: fadein 1.5s;
+    margin: 20px;
+    flex-basis: 25%;
 }
 
+.item-link {
+    cursor: pointer;
+}
+
+.item-link header {
+    text-decoration: underline;
+}
+
+.item main .content  {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.item main .content-link a {
+    font-size: 120%;
+    font-weight: bold;
+    color: #FFC863;
+}
 .item:hover {
     border-bottom: 3px solid #C10A15;
 }
@@ -75,10 +139,6 @@ body {
 
 .item-template {
     display: none;
-}
-
-.add-item-form {
-
 }
 
 .add-item-text textarea {
@@ -137,4 +197,8 @@ body {
 
 .modal-template {
     display: none;
+}
+
+.form-invalid {
+    border: 1px solid red;
 }
