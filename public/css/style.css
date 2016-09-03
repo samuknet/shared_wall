@@ -1,0 +1,205 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@font-face {
+    font-family: lintel;
+    src: local(lintel) url(fonts/lintel.otf);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: lintel, helvetica;
+}
+
+.no-select {
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+
+    /* Rules below not implemented in browsers yet */
+    -o-user-select: none;
+    user-select: none;
+}
+
+#controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    padding: 10px 10px 6px 10px;
+    background-color: #E2E0E0;
+    transition: 0.5s all ease-in-out;
+    width: 20%;
+    min-width: 100px;
+    z-index: 999;
+}
+
+#controls:active {
+    opacity: 0.8;
+}
+
+#controls form section {
+    width: 100%;
+}
+
+#controls form input, #controls form select {
+    width: 100%;
+}
+
+#controls input[type="submit"] {
+    margin: auto;
+    margin-top: 5px;
+    float: right;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s background-color ease-in-out;
+    padding: 5px 10px 5px 10px;
+}
+
+#controls input[type="submit"]:hover {
+    background-color: #3FD35D;
+}
+
+#controls .toggle-btn {
+    font-size: 250%;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s opacity ease-in-out;
+    opacity: 0.6;
+}
+
+#controls .toggle-btn:hover {
+    opacity: 1;
+}
+
+#controls:hover {
+    opacity: 1;
+}
+
+.item-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.item {
+    margin: auto;
+    background-color: #365CB5; /* Royal Blue */
+    color: white;
+    background-color: #EDEDED;
+    color: black;
+
+    width: 20vw;
+    min-width: 200px;
+    padding: 0 5px 5px 5px;
+    text-align: center;
+    border-bottom: 3px solid #8BA6E5;
+    transition: 0.2s border-bottom ease-in-out;
+    box-shadow: 1px 1px 5px rgba(160, 160, 160, 0.9);
+     -webkit-animation: fadein 1.5s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1.5s; /* Firefox < 16 */
+    -ms-animation: fadein 1.5s; /* Internet Explorer */
+    -o-animation: fadein 1.5s; /* Opera < 12.1 */
+    animation: fadein 1.5s;
+    margin: 20px;
+    flex-basis: 100%;
+    max-width: 400px;
+}
+
+.item-link {
+    cursor: pointer;
+}
+
+.item-link header {
+    text-decoration: underline;
+}
+
+.item main .content  {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.item main .content-link a {
+    font-size: 120%;
+    font-weight: bold;
+    color: #FFC863;
+}
+.item:hover {
+    border-bottom: 3px solid #C10A15;
+}
+
+.item p {
+    text-align: initial;
+}
+
+.item-template {
+    display: none;
+}
+
+.add-item-text textarea {
+    width: 100%;
+    height: 150px;
+    font-family: inherit;
+}
+
+.add-item-form-template {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 0 20px 5px 20px;
+    width: 320px;
+    background-color: rgba(240, 240, 240, 0.9);
+    box-shadow: 1px 1px 10px rgba(160, 160, 160, 0.9);
+    transition: 0.5s all ease-in-out;
+}
+
+.modal:hover {
+    background-color: rgba(240, 240, 240, 1);
+
+}
+
+.modal footer{
+    float: right;
+}
+
+.modal footer input[type="button"] {
+    border: 1px solid #C6C6C6;
+    padding: 5px;
+    cursor: pointer;
+    transition: 0.5s all ease-in-out;
+}
+
+.modal-ok-btn {
+    background-color: rgba(147, 237, 150, 0.5);
+}
+
+.modal-ok-btn:hover {
+    background-color: rgba(147, 237, 150, 1);
+}
+
+.modal-cancel-btn {
+    background-color: rgba(229, 91, 91, 0.5);
+}
+
+.modal-cancel-btn:hover {
+    background-color: rgba(229, 91, 91, 1);
+}
+
+.modal-template {
+    display: none;
+}
+
+.form-invalid {
+    border: 1px solid red;
+}
