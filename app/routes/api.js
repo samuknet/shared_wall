@@ -1,3 +1,5 @@
+var config = require('../../config/config');
+
 var mongoose = require('mongoose'),
 Item = require('../models/item');
 
@@ -6,6 +8,7 @@ var multiparty = require('multiparty');
 var sh = require('shorthash');
 var fs = require('fs');
 var path = require('path');
+
 
 module.exports = function(app) {
 
@@ -36,10 +39,12 @@ module.exports = function(app) {
             var form = new multiparty.Form();
             form.parse(req, function(err, fields, files) {
                 var file = files.file[0];
-                var fn = sh.unique('' + new Date().getTime());
-                var newPath = path.resolve(__dirname, '../../public/uploads/' + fn);
+                var fn = sh.unique('' + new Date().getTime()) + '.png';
+                var newPath = path.resolve(__dirname, '../../' + config.uploadDir + '/' + fn);
+                console.log(newPath);
                 fs.rename(file.path, newPath, function (err, data) {
                     if (err) {
+                        console.log(err);
                         res.status(406).json(err);
                     }  else {
                         // Get item data
@@ -55,7 +60,24 @@ module.exports = function(app) {
             });
 
         }
-      
-
    });
+
+    app.delete('/items/:id', function (req, res) {
+        Item.findOne({_id: req.params.id}, function(err, item) {
+            if (err) {
+                res.status(404).send();
+            } else {
+                item.remove(function() {
+                    if (item.type === 'image') {
+                        fs.unlink(path.resolve(__dirname, '../../public/' + item.url), function (err) {
+                            res.json({message: 'Success'});
+                        });
+                    } else {
+                        res.send({message: 'Success'});
+                    }
+                });
+                
+            } 
+        });
+    });
 };

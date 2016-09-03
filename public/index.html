@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Wall</title>
+
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous" />
+
     <link rel="stylehseet" type="text/css" href="css/fade.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <script src="bower_components/underscore/underscore-min.js"></script>
+
 
     <script src="bower_components/angular/angular.min.js"></script>
 
@@ -53,9 +59,18 @@
     </nav>
 
     <main ng-controller="ItemsCtrl" class="item-container">
-        <article ng-repeat="item in items" ng-click="onItemClick(item)" class="{{getItemClass(item)}}">
+        <article ng-repeat="item in items" class="{{getItemClass(item)}}">
+            <a href="" ng-click="deleteItem(item)" class="close-btn fa fa-close">
+        
+            </a>
             <header>
-                <h2>{{item.title}}</h2>
+                <a ng-if="item.type === 'link'" ng-href="{{item.url}}">
+                    <h2>{{item.title}}</h2>
+                </a>
+                <h2 ng-if="item.type !== 'link'">
+                    {{item.title}}
+                </h2>
+
             </header>
             <main ng-if="item.type === 'image'">
                 <img class="content content-image" ng-src="{{item.url}}" />

@@ -3,11 +3,9 @@ angular.module('sharedWall')
         $scope.types = TypeService.types;
         $scope.items = ItemService.items;
 
-        $scope.onItemClick = function (item) {
-            if (item.type === 'link') {
-                window.location.href = item.url;
-            }
-        };
+        $scope.deleteItem = function (item) {
+          ItemService.deleteItem(item);
+        }
 
         $scope.getItemClass = function(item) {
             return 'item ' + 'item-' + item.type; 

@@ -41,4 +41,11 @@ angular.module('sharedWall')
                 });
             
         };
+
+        this.deleteItem = function(itemToDelete) {
+            return $http.delete('/items/' + itemToDelete._id)
+            .success(function () {
+                self.items.splice(_.findIndex(self.items, {_id: itemToDelete._id}), 1);
+            });
+        }
     }]);
