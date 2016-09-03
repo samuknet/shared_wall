@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/shared_wall');
 require('./app/routes/api')(app);
 
 if (config.traceRequests) {
-    app.use(morgan());
+    app.use(morgan(':url :user-agent :remote-addr'));
 }
 
 app.use(function nocache(req, res, next) {

@@ -1,0 +1,14 @@
+{
+  "name": "Shared Wall",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/ico",
+      "density": 1
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
