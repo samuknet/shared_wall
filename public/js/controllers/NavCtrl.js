@@ -7,43 +7,76 @@ angular.module('sharedWall')
     }]);
 
 angular.module('sharedWall')
-    .directive('fileModel', ['$parse', function ($parse) {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                var model = $parse(attrs.fileModel);
-                var modelSetter = model.assign;
-                
-                element.bind('change', function(){
-                    scope.$apply(function(){
-                        modelSetter(scope, element[0].files[0]);
-                    });
-                });
-            }
-        };
-    }]);
+.directive('customOnChange', function() {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
+      var onChangeHandler = scope.$eval(attrs.customOnChange);
+      element.bind('change', onChangeHandler);
+    }
+  };
+});
 
 angular.module('sharedWall')
 .controller('AddItemFormCtrl', ['$scope', '$http', 'TypeService', 'ItemService', function($scope, $http, TypeService, ItemService) {
-    $scope.types = TypeService.types;
-    $scope.valid = false;
-    $scope.type = '';
-    $scope.title = '';
-    $scope.url = '';
-    $scope.addItem = function (type, title, url) {
-        if (!$scope.valid || !type || !title || (type !== 'image') && !url) {
-            // Invalid
-            addItemForm.classList.add('form-invalid');
+    $scope.imageFile = $scope.imageFile || {};
+    $scope.addImageItem = function(evt) { // Called once file selected.
+        var title = prompt('Enter title for image.');
+        if (!title) {
+            $scope.imageFile = '';
             return;
         }
-        
-        addItemForm.classList.remove('form-invalid');
-        ItemService.addItem(type, title, url, $scope.imageFile);
+        $scope.addItem('image', title, '', evt.target.files[0])
+    }
+
+    $scope.addSpotifyItem = function() {
+        var title = prompt('Enter title');
+        if (!title) {
+            return;
+        }
+
+        var url = prompt('Enter Spotify URI');
+        if (!url) {
+            return;
+        }
+
+        $scope.addItem('spotify', title, url)
+    }
+
+    $scope.addYoutubeItem = function() {
+        var title = prompt('Enter title');
+        if (!title) {
+            return;
+        }
+
+        var url = prompt('Enter Youtube URL');
+        if (!url) {
+            return;
+        }
+
+        $scope.addItem('youtube', title, url)
+    }
+
+    $scope.addLinkItem = function() {
+        var title = prompt('Enter title');
+        if (!title) {
+            return;
+        }
+
+        var url = prompt('Enter Link URL');
+        if (!url) {
+            return;
+        }
+
+        $scope.addItem('link', title, url)
+    }
+
+    $scope.addItem = function (type, title, url, imageFile) {
+        // Pre: validation already complete.
+        ItemService.addItem(type, title, url, imageFile);
 
         // Reset form
         // $scope.type = '';
-        $scope.title = '';
-        $scope.url = '';
     };  
 }]);
 

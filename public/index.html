@@ -6,15 +6,17 @@
 
     <title>Wall</title>
 
-    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css" integrity="sha384-Wrgq82RsEean5tP3NK3zWAemiNEXofJsTwTyHmNb/iL3dP/sZJ4+7sOld1uqYJtE" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css" />
 
-    <link rel="stylehseet" type="text/css" href="css/fade.css" />
+    <link rel="stylesheet" type="text/css" href="css/fade.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-        <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
 
 
     <script src="bower_components/angular/angular.min.js"></script>
+
+     <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 
     <script src="js/main.js"></script>
 
@@ -30,7 +32,39 @@
 </head>
 <body>
     <nav id="controls" ng-controller="NavCtrl" class="no-select">
-        <form novalidate name="addItemForm" method="post" ng-controller="AddItemFormCtrl">
+
+    <div class="add-btns" ng-controller="AddItemFormCtrl">
+    
+        <div class="add-btn add-img-btn">
+            <a href="#">
+            <label for="imageFileUpload">
+                     <i class="fa fa-lg fa-camera"></i>
+            </label>
+            <input  type="file" id="imageFileUpload" file-model="imageFile" custom-on-change="addImageItem" />
+            </a>
+        </div>
+
+
+        <div class="add-btn add-spotify-btn">
+            <a href="#" ng-click="addSpotifyItem()">
+                <i class="fa fa-lg fa-spotify"></i>
+            </a>
+        </div>
+
+        <div class="add-btn add-youtube-btn">
+            <a href="#" ng-click="addYoutubeItem()">
+                <i class="fa fa-lg fa-youtube"></i>
+            </a>
+        </div>
+        <div class="add-btn add-link-btn">
+            <a href="#" ng-click="addLinkItem()">
+                <i class="fa fa-lg fa-link"></i>
+            </a>
+        </div>
+
+    </div>
+
+    <!--     <form novalidate name="addItemForm" method="post" ng-controller="AddItemFormCtrl">
                 <section>
                     Type:
                     <select required ng-model="type" ng-change="valid=true" name="type">
@@ -55,13 +89,12 @@
                     </div>
                     <input type="submit" ng-click="addItem(type, title, url)" value="Add" />
                 </section>
-        </form>
+        </form> -->
     </nav>
 
-    <main ng-controller="ItemsCtrl" class="item-container">
-        <article ng-repeat="item in items" class="{{getItemClass(item)}}">
+    <main ng-controller="ItemsCtrl" class="items-container">
+        <article ng-repeat="item in items" class="{{getItemClass(item)}} fade">
             <a href="" ng-click="deleteItem(item)" class="close-btn fa fa-close">
-        
             </a>
             <header>
                 <a ng-if="item.type === 'link'" ng-href="{{item.url}}">
@@ -92,29 +125,5 @@
             </footer>
         </article>
     </main>
-
-    <article class="modal modal-template">
-        <header>
-            <h2>Modal Heading</h2>
-        </header>
-        <main>
-        </main>
-        <footer>
-            <input class="modal-ok-btn" type="button" value="Ok" />
-            <input class="modal-cancel-btn" type="button" value="Cancel" />
-        </footer>
-    </article>
-
-    <form class="add-item-form add-item-text add-item-form-template">
-        <form>
-            <label for="title">Title</label>
-            <input type="text" class="add-item-title" />
-
-            <div contentEditable class="editable add-item-text-content">
-                Type here
-            </div>
-        </form>    
-    </form>
-
 </body>
 </html>

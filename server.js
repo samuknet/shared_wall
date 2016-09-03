@@ -19,6 +19,14 @@ require('./app/routes/api')(app);
 if (config.traceRequests) {
     app.use(morgan());
 }
+
+app.use(function nocache(req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next();
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.listen(80);

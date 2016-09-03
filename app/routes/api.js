@@ -23,10 +23,14 @@ module.exports = function(app) {
     });
 
     app.post('/items', function (req, res) {
+        var error = function(err) {
+            res.status(406).json(err);
+        };
+
         var saveItem = function (item) {
             new Item(item).save(function(err, item) {
                 if (err) {
-                    res.status(406).json({message: err.message});
+                    error(err);
                 } else {
                     res.status(201).json(item);                
                 }
@@ -38,14 +42,18 @@ module.exports = function(app) {
         } else { // Consider this a file upload with type image
             var form = new multiparty.Form();
             form.parse(req, function(err, fields, files) {
+                
+                if (!files || !files.file[0]) {
+                    return error({message: 'Attempted to add an image item but no files found.'});
+                }
+
                 var file = files.file[0];
+
                 var fn = sh.unique('' + new Date().getTime()) + '.png';
                 var newPath = path.resolve(__dirname, '../../' + config.uploadDir + '/' + fn);
-                console.log(newPath);
                 fs.rename(file.path, newPath, function (err, data) {
                     if (err) {
-                        console.log(err);
-                        res.status(406).json(err);
+                        error(err);
                     }  else {
                         // Get item data
                         for (var field in fields) {
@@ -64,7 +72,7 @@ module.exports = function(app) {
 
     app.delete('/items/:id', function (req, res) {
         Item.findOne({_id: req.params.id}, function(err, item) {
-            if (err) {
+            if (err || !item) {
                 res.status(404).send();
             } else {
                 item.remove(function() {

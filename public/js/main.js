@@ -1,1 +1,1 @@
- angular.module('sharedWall', []);
+ angular.module('sharedWall', ['ngAnimate']);

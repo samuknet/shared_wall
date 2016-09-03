@@ -43,9 +43,28 @@ angular.module('sharedWall')
         };
 
         this.deleteItem = function(itemToDelete) {
+            /*
+                Assume the item will be deleted
+                successfully and remove it immediately
+                from the display.
+
+                In the unlikely event the delete
+                turns out to fail, re add it back
+            */
+
+            var index = _.findIndex(self.items, {_id: itemToDelete._id});
+            self.items.splice(index, 1);
+
+
+
             return $http.delete('/items/' + itemToDelete._id)
             .success(function () {
-                self.items.splice(_.findIndex(self.items, {_id: itemToDelete._id}), 1);
-            });
+                // Already deleted!
+            })
+            .error(function() {
+                // The delete failed, add it back in as we predicted wrong.
+                self.items.splice(index, 0, itemToDelete);
+            })
+            ;
         }
     }]);

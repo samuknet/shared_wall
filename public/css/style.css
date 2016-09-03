@@ -11,6 +11,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: lintel, helvetica;
+    overflow-x: hidden;
 }
 
 .no-select {
@@ -27,17 +28,76 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    opacity: 0.4;
-    padding: 10px 10px 6px 10px;
     background-color: #E2E0E0;
     transition: 0.5s all ease-in-out;
-    width: 20%;
-    min-width: 100px;
+    width: 100vw;
+    height: 90px;
     z-index: 999;
 }
 
 #controls:active {
-    opacity: 0.8;
+}
+
+
+#controls .add-btns {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#controls .add-btn {
+    display: inline-block;
+    text-align: center;
+    float: left;
+    width: 25%;
+    height: 100%;
+    background-color: #F7F7F7;
+    font-size: 250%;
+    border: 1px solid black;
+    border-left: none;
+    transition: 0.5s color ease-in-out;
+}
+
+#controls .add-btn:first-of-type {
+    border-left: 1px solid black;
+}
+
+#controls .add-btn a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+#controls .add-img-btn a{
+    color: #FF9D00;
+    padding: 0;
+}
+
+#controls .add-img-btn label {
+    display: block;
+    cursor: pointer;
+    /* Padding ensures label takes up the whole area. */
+    padding: 20px;
+}
+
+#controls .add-img-btn #imageFileUpload {
+    display: none;
+}
+
+#controls .add-spotify-btn a {
+    color: #308E1F;
+}
+
+#controls .add-youtube-btn a {
+    color: #C10A15;
+}
+
+#controls .add-link-btn a {
+    color: #365CB5;
 }
 
 #controls form section {
@@ -79,8 +139,8 @@ body {
     opacity: 1;
 }
 
-.item-container {
-    margin-top: 20px;
+.items-container {
+    margin-top: 92px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -90,8 +150,6 @@ body {
 
 .item {
     margin: auto;
-    background-color: #365CB5; /* Royal Blue */
-    color: white;
     background-color: #EDEDED;
     color: black;
 
@@ -110,15 +168,15 @@ body {
     margin: 20px;
     flex-basis: 100%;
     max-width: 400px;
+
+    transition: 0.2s all ease-in-out;
 }
 
-.item-link {
-    cursor: pointer;
-}
-
-.item-link header {
+.item-link header a {
     text-decoration: underline;
+    color: black;
 }
+
 
 .item main .content  {
     max-width: 100%;
@@ -138,16 +196,13 @@ body {
     text-align: initial;
 }
 
-.item-template {
-    display: none;
-}
-
 .item .close-btn {
     float: right;
     padding-top: 5px;
     padding-right: 5px;
     text-decoration: none;
     color: black;
+    font-size: 150%;
     transition: 0.5s color ease-in-out;
 }
 
@@ -165,54 +220,36 @@ body {
     display: none;
 }
 
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    padding: 0 20px 5px 20px;
-    width: 320px;
-    background-color: rgba(240, 240, 240, 0.9);
-    box-shadow: 1px 1px 10px rgba(160, 160, 160, 0.9);
-    transition: 0.5s all ease-in-out;
+
+/* Enter animation. */
+.fade.ng-enter {
+    transition: 0.2s ease-in-out all;
+    opacity:  0;
+    position: relative;
+    left: -100px;
 }
 
-.modal:hover {
-    background-color: rgba(240, 240, 240, 1);
-
+.fade.ng-enter.ng-enter-active {
+    opacity: 1;
+    left: 0;
 }
 
-.modal footer{
-    float: right;
+/* Leave animation. */
+.fade.ng-leave {
+    transition: 0.2s ease-in-out all;
+    opacity: 1;
+    position: relative;
+    left: 0;
+
+}
+.fade.ng-leave.ng-leave-active {
+    opacity: 0;
+    left: 130vw;
 }
 
-.modal footer input[type="button"] {
-    border: 1px solid #C6C6C6;
-    padding: 5px;
-    cursor: pointer;
-    transition: 0.5s all ease-in-out;
+/* Move animation. */
+.fade.ng-move {
+    transition: 0.2s ease-in-out all;
 }
-
-.modal-ok-btn {
-    background-color: rgba(147, 237, 150, 0.5);
-}
-
-.modal-ok-btn:hover {
-    background-color: rgba(147, 237, 150, 1);
-}
-
-.modal-cancel-btn {
-    background-color: rgba(229, 91, 91, 0.5);
-}
-
-.modal-cancel-btn:hover {
-    background-color: rgba(229, 91, 91, 1);
-}
-
-.modal-template {
-    display: none;
-}
-
-.form-invalid {
-    border: 1px solid red;
+.fade.ng-move.ng-move-active {
 }
